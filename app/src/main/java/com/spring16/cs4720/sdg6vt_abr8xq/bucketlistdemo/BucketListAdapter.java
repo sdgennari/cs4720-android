@@ -1,9 +1,12 @@
 package com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.List;
@@ -19,8 +22,10 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
         public TextView mNumberView;
         public TextView mNameView;
         public ToggleButton mToggleButton;
+        public View mRoot;
         public ViewHolder(View v) {
             super(v);
+            mRoot = v;
             mNumberView = (TextView)(v.findViewById(R.id.item_number));
             mNameView = (TextView)(v.findViewById(R.id.item_name));
             mToggleButton = (ToggleButton)(v.findViewById(R.id.item_toggle));
@@ -47,9 +52,29 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        final ListItem currentItem = mDataset.get(position);
+
         holder.mNumberView.setText(String.valueOf(position));
-        holder.mNameView.setText(mDataset.get(position).name);
-        holder.mToggleButton.setChecked(mDataset.get(position).isComplete);
+        holder.mNameView.setText(currentItem.name);
+        // Remove previous check changed listener
+        holder.mToggleButton.setOnCheckedChangeListener(null);
+        holder.mToggleButton.setChecked(currentItem.isComplete);
+        holder.mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentItem.isComplete = isChecked;
+                String message = isChecked ? ":)" : ":(";
+                Toast.makeText(buttonView.getContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.mRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BucketListDetailActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
