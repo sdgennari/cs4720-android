@@ -15,11 +15,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
         android:text = "High five dean groves"/>
 
     <ToggleButton
         android:id = "@+id/item_toggle"
-        android:layout_width="72dp"
-        android:layout_height="72dp" />
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/item_checkbox"/>
 
 </LinearLayout>

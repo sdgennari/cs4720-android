@@ -1,7 +1,5 @@
 package com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo;
 
-
-import android.app.usage.NetworkStats;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
 
 /**
@@ -21,6 +18,8 @@ public class BucketListFragment extends Fragment {
     private RecyclerView.LayoutManager mBucketListLayoutManager;
     private BucketListAdapter mBucketListAdapter;
 
+    private BucketListDataStore mBucketListDataStore;
+
     public BucketListFragment() {
         // Required empty public constructor
     }
@@ -30,7 +29,6 @@ public class BucketListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_bucket_list, container, false);
-
         mBucketListRecyclerView = (RecyclerView)root.findViewById(R.id.bucket_list_recycler_view);
 
         // Boosts performance by guaranteeing that all the cells are the same size
@@ -40,9 +38,11 @@ public class BucketListFragment extends Fragment {
         mBucketListLayoutManager = new LinearLayoutManager(this.getActivity());
         mBucketListRecyclerView.setLayoutManager(mBucketListLayoutManager);
 
+        // Setup data store
+        mBucketListDataStore = BucketListDataStore.getInstance();
+
         // Set recycler view adapter
-        String[] names = {"Shake the hand of Dean Groves!", "Streak the Lawn!", "Arrest Sheriff"};
-        mBucketListAdapter = new BucketListAdapter(names);
+        mBucketListAdapter = new BucketListAdapter(mBucketListDataStore.getData());
         mBucketListRecyclerView.setAdapter(mBucketListAdapter);
 
         return root;

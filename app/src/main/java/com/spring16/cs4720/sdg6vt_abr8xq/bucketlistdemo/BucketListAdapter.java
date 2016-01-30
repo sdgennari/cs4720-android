@@ -6,11 +6,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.List;
+
 /**
  * Created by alexramey on 1/30/16.
  */
 public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<ListItem> mDataset;
 
     // Wrapper for the cell
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -26,7 +28,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
     }
 
     // constructor
-    public BucketListAdapter(String[] myDataset) {
+    public BucketListAdapter(List<ListItem> myDataset) {
         mDataset = myDataset;
     }
 
@@ -46,13 +48,14 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mNumberView.setText(String.valueOf(position));
-        holder.mNameView.setText(mDataset[position]);
+        holder.mNameView.setText(mDataset.get(position).name);
+        holder.mToggleButton.setChecked(mDataset.get(position).isComplete);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
 }
