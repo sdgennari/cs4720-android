@@ -8,6 +8,13 @@
     <FrameLayout
         android:id = "@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <fragment class="com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo.BucketListFragment"
+            android:id="@+id/bucket_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

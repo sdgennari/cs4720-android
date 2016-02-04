@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frags"
+    android:weightSum="2">
+    <!-- "List Fragment" -->
+    <fragment class="com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo.BucketListFragment"
+        android:id="@+id/bucket_list_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <!-- "Detail Fragment" -->
+    <fragment class="com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo.ListItemDetailFragment"
+        android:id="@+id/item_detail_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+</LinearLayout>
