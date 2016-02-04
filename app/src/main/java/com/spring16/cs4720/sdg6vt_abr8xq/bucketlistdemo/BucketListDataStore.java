@@ -1,5 +1,8 @@
 package com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +14,18 @@ import java.util.List;
 public class BucketListDataStore {
 
     private List<ListItem> mData;
+    private final String KEY_SHARED_PREFS_DATA_STORE = "KEY_SHARED_PREFS_DATA_STORE";
+    private final String KEY_SHARED_PREFS_PROGRESS_STRING = "KEY_SHARED_PREFS_PROGRESS_STRING";
+    private SharedPreferences mPrefs;
     private static BucketListDataStore sInstance;
 
     /**
      * Returns static instance of the BuckListDataStore singleton
      * @return Singleton instance of the BucketListDataStore
      */
-    public static BucketListDataStore getInstance() {
+    public static BucketListDataStore getInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new BucketListDataStore();
+            sInstance = new BucketListDataStore(context);
         }
         return sInstance;
     }
@@ -28,9 +34,18 @@ public class BucketListDataStore {
      * Private constructor to initialize data. Made private so other classes can only access the
      * singleton constructor.
      */
-    private BucketListDataStore() {
+    private BucketListDataStore(Context context) {
+        mPrefs = context.getSharedPreferences(KEY_SHARED_PREFS_DATA_STORE, 0);
         mData = getMockData();
     }
+
+    /**
+     * Private default constructor to adhere to Singleton design pattern.
+     */
+    private BucketListDataStore() {
+        // empty constructor
+    }
+
 
     /**
      * Returns a list of items on the bucket list
@@ -158,6 +173,81 @@ public class BucketListDataStore {
         itemList.add(new ListItem(108, "Listen to an entire song played on the chapel bells", "Short Description", "Long Description", false));
         itemList.add(new ListItem(109, "Watch the halftime show at a football game", "Short Description", "Long Description", false));
         itemList.add(new ListItem(110, "Wear the honors of Honor", "Short Description", "Long Description", false));
+        recallCompletionState(itemList);
         return itemList;
     }
+
+    /**
+     *
+     * @param list A list of ListItems on which this method seeks to update the
+     *             isCompleted field using the information stored in the progress
+     *             string in shared preferences. This progress string is of the form
+     *             x,x,x,x,x,x,x where x may either be 0 or 1.
+     */
+    private void recallCompletionState(List<ListItem> list) {
+        String savedString = mPrefs.getString(KEY_SHARED_PREFS_PROGRESS_STRING, "");
+        if (savedString.equals("")){
+            // No saved string
+            String progressString = "";
+            int limit = list.size() - 1;
+            for (int i = 0; i < limit; i++) {
+                progressString += "0,";
+            }
+            progressString+="0";
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString(KEY_SHARED_PREFS_PROGRESS_STRING, progressString);
+            editor.commit();
+        }
+        else {
+            String[] progressIndicators = savedString.split(",");
+            if (list.size() != progressIndicators.length) {
+                if (list.size() > progressIndicators.length)
+                {
+                    // lengthen the current progress string
+                    String progressString = "";
+                    // copy existing progress values
+                    for (int i = 0; i < progressIndicators.length; i++)
+                    {
+                        progressString += (progressIndicators[i] + ",");
+                    }
+                    int limit = list.size() - 1;
+                    // append 0s for new tasks (mark as incomplete)
+                    for (int i = progressIndicators.length; i < limit; i++)
+                    {
+                        progressString  += "0,";
+                    }
+                    progressString += "0";
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString(KEY_SHARED_PREFS_PROGRESS_STRING, progressString);
+                    editor.commit();
+                    progressIndicators = progressString.split(",");
+                }
+                else{
+                    // ignore this case (it's okay to save a string that's a little too long)
+                }
+            }
+            int size = progressIndicators.length;
+            for (int i = 0; i < size; i++) {
+                list.get(i).isComplete = (progressIndicators[i].equals("1"));
+            }
+        }
+    }
+
+
+    /**
+     * We toggle the appropriate progress indicator in the SharedPrefs String
+     * @param itemNumber the id of the item that was toggled
+     */
+    public void recordCheckToggle(int itemNumber)
+    {
+        String savedString = mPrefs.getString(KEY_SHARED_PREFS_PROGRESS_STRING, "");
+        char c = savedString.charAt(itemNumber * 2);
+        c = (c == '1' ? '0' : '1');
+        StringBuilder builder = new StringBuilder(savedString);
+        builder.setCharAt(itemNumber*2, c);
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putString(KEY_SHARED_PREFS_PROGRESS_STRING, builder.toString());
+        editor.commit();
+    }
+
 }

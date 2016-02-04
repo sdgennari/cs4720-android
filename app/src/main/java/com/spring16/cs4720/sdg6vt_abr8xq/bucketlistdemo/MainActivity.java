@@ -9,9 +9,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("Activity: On Create!");
         setContentView(R.layout.activity_main);
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.add(R.id.fragment_container, new BucketListFragment());
-        trans.commit();
+        if (savedInstanceState == null) {
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.add(R.id.fragment_container, new BucketListFragment());
+            trans.commit();
+        }
     }
 }

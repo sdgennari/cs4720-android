@@ -27,6 +27,7 @@ public class BucketListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("Fragment OnCreateView!");
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_bucket_list, container, false);
         mBucketListRecyclerView = (RecyclerView)root.findViewById(R.id.bucket_list_recycler_view);
@@ -39,7 +40,7 @@ public class BucketListFragment extends Fragment {
         mBucketListRecyclerView.setLayoutManager(mBucketListLayoutManager);
 
         // Setup data store
-        mBucketListDataStore = BucketListDataStore.getInstance();
+        mBucketListDataStore = BucketListDataStore.getInstance(this.getContext());
 
         // Set recycler view adapter
         mBucketListAdapter = new BucketListAdapter(mBucketListDataStore.getData());

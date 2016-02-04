@@ -63,6 +63,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentItem.isComplete = isChecked;
+                BucketListDataStore.getInstance(buttonView.getContext()).recordCheckToggle(currentItem.id);
                 String message = isChecked ? ":)" : ":(";
                 Toast.makeText(buttonView.getContext(), message, Toast.LENGTH_SHORT).show();
             }
