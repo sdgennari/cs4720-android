@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.util.Log;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +47,18 @@ public class BucketListFragment extends Fragment {
         mBucketListRecyclerView.setAdapter(mBucketListAdapter);
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("tag", "onResume!");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("tag", "onPause!");
     }
 
 }
