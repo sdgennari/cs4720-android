@@ -158,11 +158,21 @@ public class BucketListDataStore {
         String savedString = mPrefs.getString(KEY_SHARED_PREFS_PROGRESS_STRING, "");
         char c = savedString.charAt(itemNumber * 2);
         c = (c == '1' ? '0' : '1');
+        // update local item
+        mData.get(itemNumber).isComplete = ((c == '1' ? true : false));
         StringBuilder builder = new StringBuilder(savedString);
         builder.setCharAt(itemNumber*2, c);
         SharedPreferences.Editor editor = mPrefs.edit();
         editor.putString(KEY_SHARED_PREFS_PROGRESS_STRING, builder.toString());
         editor.commit();
+    }
+
+    public ListItem getItemAtIndex(int index)
+    {
+        if (index < mData.size()) {
+            return mData.get(index);
+        }
+        return null;
     }
 
 }

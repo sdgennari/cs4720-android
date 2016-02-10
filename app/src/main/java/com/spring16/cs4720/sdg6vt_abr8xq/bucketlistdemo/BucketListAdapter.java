@@ -53,7 +53,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final ListItem currentItem = mDataset.get(position);
-
+        final int index = position;
         holder.mNumberView.setText(String.valueOf(position));
         holder.mNameView.setText(currentItem.name);
         // Remove previous check changed listener
@@ -73,6 +73,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), BucketListDetailActivity.class);
+                intent.putExtra("index", index);
                 v.getContext().startActivity(intent);
             }
         });
