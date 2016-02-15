@@ -9,10 +9,10 @@
 - [x] There needs to be obvious indication in the list as to whether a particular item has been completed or not (not just on the separate info page)
 - [x] There should be some easy way from the list to check off that you have done that item
 - [x] The app does not necessarily need to remember what items were checked off
-- [ ] Tapping on an item in the list should bring up another page that shows information about the item
-- [ ] The info displayed should be at least a title/name of the item, a short description, and whether it is complete or not
-- [ ] You should also be able to check off that something has been completed from its info page
-- [ ] The app must be able to be run on other devices (i.e. you’ll need to create a signed .apk for installation)
+- [x] Tapping on an item in the list should bring up another page that shows information about the item
+- [x] The info displayed should be at least a title/name of the item, a short description, and whether it is complete or not
+- [x] You should also be able to check off that something has been completed from its info page
+- [x] The app must be able to be run on other devices (i.e. you’ll need to create a signed .apk for installation)
 - [x] ~~Groups of 3 are expected to add more features on top of this list - ask staff for ideas if you need them~~
 - [x] ~~Groups of 3 should explain their added features in their documentation~~
 
