@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.ToggleButton;
 
 public class BucketListDetailActivity extends AppCompatActivity {
 
@@ -29,8 +30,8 @@ public class BucketListDetailActivity extends AppCompatActivity {
                 titleView.setText(item.name);
                 TextView shortDescriptionView = (TextView)this.findViewById(R.id.short_desc_view);
                 shortDescriptionView.setText(item.shortDescription);
-                TextView progressView = (TextView)this.findViewById(R.id.progress_view);
-                progressView.setText(item.isComplete ? "TASK COMPLETE" : "TASK NOT COMPLETE");
+                ToggleButton statusToggleButton = (ToggleButton) this.findViewById(R.id.toggle_button_status);
+                statusToggleButton.setChecked(item.isComplete);
             }
         }
     }

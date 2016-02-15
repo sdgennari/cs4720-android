@@ -13,28 +13,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id = "@+id/title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
-            android:gravity="left"/>
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="start"
+            tools:text="See a Movie at the Virginia Film Festival"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginBottom="@dimen/padding_default"
+            android:background="@color/divider" />
+
         <TextView
             android:id = "@+id/short_desc_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
-            android:gravity="left"/>
-        <TextView
-            android:id = "@+id/progress_view"
+            android:gravity="start"
+            tools:text="Choose a movie you haven't seen before!"/>
+
+        <Space
             android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_default" />
+
+        <ToggleButton
+            android:id="@+id/toggle_button_status"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:gravity="left"/>
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Toggle"
+            android:padding="@dimen/padding_default"
+            android:layout_gravity="center_horizontal"
+            android:textOn="Complete"
+            android:textOff="Not Complete"
             android:onClick="toggleProgress"/>
     </LinearLayout>
     
