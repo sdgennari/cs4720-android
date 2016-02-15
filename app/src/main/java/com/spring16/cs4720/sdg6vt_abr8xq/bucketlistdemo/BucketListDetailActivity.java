@@ -26,6 +26,8 @@ public class BucketListDetailActivity extends AppCompatActivity {
         if (mSelection != -1) {
             ListItem item = BucketListDataStore.getInstance(this).getItemAtIndex(mSelection);
             if (item != null) {
+                TextView bigNumView = (TextView) this.findViewById(R.id.text_view_big_num);
+                bigNumView.setText(String.valueOf(mSelection));
                 TextView titleView = (TextView)this.findViewById(R.id.title_view);
                 titleView.setText(item.name);
                 TextView shortDescriptionView = (TextView)this.findViewById(R.id.short_desc_view);
