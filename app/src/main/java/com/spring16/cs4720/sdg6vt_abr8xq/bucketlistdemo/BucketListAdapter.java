@@ -1,4 +1,5 @@
 package com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -74,7 +75,10 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), BucketListDetailActivity.class);
                 intent.putExtra("index", index);
-                v.getContext().startActivity(intent);
+
+                // Start the detail activity for result
+                ((Activity) v.getContext()).startActivityForResult(intent,
+                        BucketListFragment.REQUEST_CODE_TOGGLE);
             }
         });
     }

@@ -3,6 +3,7 @@ package com.spring16.cs4720.sdg6vt_abr8xq.bucketlistdemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
 
@@ -34,9 +35,21 @@ public class BucketListDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        setActivtyResult();
+        super.onBackPressed();
+    }
+
     public void toggleProgress(View v) {
         BucketListDataStore.getInstance(this).recordCheckToggle(mSelection);
         this.updateUI();
+    }
+
+    private void setActivtyResult() {
+        Intent data = new Intent();
+        data.putExtra(BucketListFragment.EXTRA_TOGGLE_INDEX, mSelection);
+        setResult(RESULT_OK, data);
     }
 
 }
