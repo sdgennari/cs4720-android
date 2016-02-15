@@ -43,6 +43,8 @@ public class BucketListFragment extends Fragment {
         mBucketListLayoutManager = new LinearLayoutManager(this.getActivity());
         mBucketListRecyclerView.setLayoutManager(mBucketListLayoutManager);
 
+        mBucketListRecyclerView.addItemDecoration(new LineDividerDecoration());
+
         // Setup data store
         mBucketListDataStore = BucketListDataStore.getInstance(this.getContext());
 
